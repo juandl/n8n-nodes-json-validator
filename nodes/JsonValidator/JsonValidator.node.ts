@@ -54,7 +54,7 @@ export class JsonValidator implements INodeType {
 		const inputField = this.getNodeParameter('inputField', 0) as string;
 
 		//Compile scheme
-		const validate = AJV.compile(scheme);
+		const validate = await AJV.compileAsync(scheme);
 
 		// Get the input data for validation
 		const items = this.getInputData();
@@ -76,10 +76,10 @@ export class JsonValidator implements INodeType {
 			}
 
 			//Run validation
-			const valid = validate(inputData);
+			const result = validate(inputData);
 
-			if (!valid) {
-				throw new NodeOperationError(this.getNode(), `Validation failed: ${AJV.errorsText()}`, {
+			if (!result) {
+				throw new NodeOperationError(this.getNode(), AJV.errorsText(validate.errors), {
 					itemIndex: i,
 				});
 			}
