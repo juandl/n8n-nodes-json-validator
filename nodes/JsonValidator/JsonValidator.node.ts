@@ -8,7 +8,7 @@ import {
 
 import Ajv, { type SchemaObject } from 'ajv';
 
-export class JsonValidatorNode implements INodeType {
+export class JsonValidator implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Json Validator',
 		name: 'jsonValidator',
@@ -29,6 +29,13 @@ export class JsonValidatorNode implements INodeType {
 				default: {},
 				description: 'A valid ajv Scheme',
 			},
+			{
+				displayName: 'Input Field',
+				name: 'inputField',
+				type: 'string',
+				default: 'json',
+				description: 'The name of the input field containing the JSON data to validate',
+			},
 		],
 	};
 
@@ -43,6 +50,9 @@ export class JsonValidatorNode implements INodeType {
 			ensureType: 'json',
 		}) as SchemaObject;
 
+		// Get the input field specified by the user
+		const inputField = this.getNodeParameter('inputField', 0) as string;
+
 		//Compile scheme
 		const validate = AJV.compile(scheme);
 
@@ -53,7 +63,17 @@ export class JsonValidatorNode implements INodeType {
 		const resultData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
-			const inputData = items[i].json;
+			const inputData = items[i].json[inputField];
+
+			if (!inputData) {
+				throw new NodeOperationError(
+					this.getNode(),
+					`Input field "${inputField}" not found in item ${i}`,
+					{
+						itemIndex: i,
+					},
+				);
+			}
 
 			//Run validation
 			const valid = validate(inputData);
