@@ -1,7 +1,7 @@
 {
   "name": "n8n-nodes-json-validator",
   "version": "0.1.8",
-  "description": "A Node to validate data using a json scheme",
+  "description": "A Node to validate a JSON against a JSON Schema",
   "keywords": [
     "n8n-community-node-package"
   ],
@@ -16,10 +16,10 @@
     "url": "https://github.com/juandl/n8n-nodes-json-validator.git"
   },
   "engines": {
-    "node": ">=18.10",
-    "pnpm": ">=9.1"
+    "node": ">=20.15",
+    "pnpm": ">=10.2.1"
   },
-  "packageManager": "pnpm@9.1.4",
+  "packageManager": "pnpm@10.2.1",
   "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -40,19 +40,19 @@
     ]
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^7.15.0",
-    "eslint": "^8.56.0",
-    "eslint-plugin-n8n-nodes-base": "^1.16.1",
-    "gulp": "^4.0.2",
-    "n8n-workflow": "*",
-    "prettier": "^3.3.2",
-    "typescript": "^5.5.3"
+    "@typescript-eslint/parser": "~8.32.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.3",
+    "gulp": "^5.0.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
   },
   "peerDependencies": {
     "n8n-workflow": "*"
   },
   "dependencies": {
     "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1"
+    "ajv-formats": "^3.0.1",
+    "ajv-errors": "^3.0.0"
   }
 }
