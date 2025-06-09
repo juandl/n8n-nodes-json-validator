@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-json-validator",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "A Node to validate a JSON against a JSON Schema",
   "keywords": [
     "n8n-community-node-package"
